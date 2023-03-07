@@ -36,8 +36,8 @@ fn main() {
         .add_startup_system_set(
             SystemSet::new()
                 .with_system(assets::load_fonts)
-                .with_system(assets::load_atlas)
-                .with_system(tiles::load_tiles),
+                .with_system(assets::load_textures)
+                .with_system(tiles::load_tileset),
         );
 
     #[cfg(feature = "dev")]

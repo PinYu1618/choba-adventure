@@ -1,12 +1,12 @@
-use bevy::reflect::{self, TypeUuid};
+use bevy::reflect::TypeUuid;
 
 use crate::prelude::*;
 
-#[derive(PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize)]
 pub enum TileType {
     Floor,
-    //Wall,
-    //DownStairs,
+    Wall,
+    DownStairs,
 }
 
 #[derive(serde::Deserialize, TypeUuid)]
@@ -16,11 +16,15 @@ pub struct Tile {
     pub fg: Color,
 }
 
+// ^TODO: implement Index for TileType
 #[derive(Resource, Reflect, Default)]
-#[reflect(Resource)]
-pub struct TileHandle(Handle<Tile>);
+pub struct Tileset {
+    floor: Handle<Tile>,
+}
 
-pub fn load_tiles(mut cmds: Commands, ass: Res<AssetServer>) {
-    let floor = TileHandle(ass.load("data/tiles/floor.tile.ron"));
-    cmds.insert_resource(floor);
+pub fn load_tileset(mut cmds: Commands, ass: Res<AssetServer>) {
+    let tileset = Tileset {
+        floor: ass.load("data/tiles/floor.tile.ron"),
+    };
+    cmds.insert_resource(tileset);
 }
