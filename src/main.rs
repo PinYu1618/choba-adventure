@@ -7,6 +7,7 @@ mod prelude {
     pub use crate::{plugins, resources::*};
 }
 
+use bevy_common_assets::ron::RonAssetPlugin;
 use prelude::*;
 
 const CLEAR: Color = Color::BLACK;
@@ -28,13 +29,15 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
+        .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_startup_system(setup_camera)
         .add_startup_system_set(
             SystemSet::new()
                 .with_system(assets::load_fonts)
-                .with_system(assets::load_atlas),
+                .with_system(assets::load_atlas)
+                .with_system(tiles::load_tiles),
         );
 
     #[cfg(feature = "dev")]
