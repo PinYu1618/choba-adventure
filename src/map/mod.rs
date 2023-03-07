@@ -10,7 +10,6 @@ use bevy_ecs_tilemap::{
     tiles::{TileBundle, TilePos, TileStorage, TileTextureIndex},
     TilemapBundle,
 };
-use bracket_pathfinding::prelude::{Algorithm2D, BaseMap, DistanceAlg, Point};
 
 use crate::prelude::*;
 
@@ -25,11 +24,13 @@ pub enum Tile {
 }
 
 impl Tile {
+    #[allow(unused)]
     pub fn opaque(self) -> bool {
         matches!(self, Self::Wall)
     }
 }
 
+#[allow(unused)]
 pub fn create_tilemap(mut cmds: Commands, tiles: Res<TilesImage>) {
     let map_size = TilemapSize { x: 80, y: 43 };
     let mut tile_storage = TileStorage::empty(map_size);

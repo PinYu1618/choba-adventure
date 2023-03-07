@@ -43,6 +43,7 @@ impl MapBundle {
         self.size.y
     }
 
+    #[allow(unused)]
     pub fn get(&self, tile_pos: &TilePos) -> Option<Entity> {
         self.storage.checked_get(tile_pos)
     }
@@ -67,7 +68,7 @@ impl MapBundle {
 
 impl BaseMap for MapBundle {
     fn is_opaque(&self, idx: usize) -> bool {
-        let (x, y) = self.xy(idx);
+        let (_x, _y) = self.xy(idx);
         //self.tiles[idx] == TileType::Wall
         //todo!()
         true

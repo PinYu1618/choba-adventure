@@ -15,9 +15,21 @@ pub fn load_fonts(mut cmds: Commands, ass: Res<AssetServer>) {
     cmds.insert_resource(UiFont(handle));
 }
 
-pub fn load_textures(mut cmds: Commands, ass: Res<AssetServer>) {
+pub fn load_textures(
+    mut cmds: Commands,
+    ass: Res<AssetServer>,
+    mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+) {
     let tiles_image: Handle<Image> = ass.load(TILES_IMAGE);
-    let tiles_atlas: Handle<TextureAtlas> = ass.load(TILES_IMAGE);
+    let tiles_atlas = TextureAtlas::from_grid(
+        tiles_image.clone(),
+        Vec2::new(16.0, 16.0),
+        49,
+        22,
+        Some(Vec2::ONE),
+        Some(Vec2::ONE),
+    );
+    let texture_atlas_handle = texture_atlases.add(tiles_atlas);
     cmds.insert_resource(TilesImage(tiles_image));
-    cmds.insert_resource(TilesAtlas(tiles_atlas));
+    cmds.insert_resource(TilesAtlas(texture_atlas_handle));
 }

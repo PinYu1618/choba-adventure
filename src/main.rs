@@ -32,6 +32,10 @@ fn main() {
                     },
                     ..default()
                 })
+                .set(AssetPlugin {
+                    watch_for_changes: true,
+                    ..default()
+                })
                 .set(ImagePlugin::default_nearest()),
         )
         .add_loopless_state(AppState::MainMenu)
@@ -46,7 +50,7 @@ fn main() {
                 .with_system(tileset::load_tileset),
         )
         .add_enter_system(AppState::MainMenu, transition_to_ingame)
-        .add_enter_system(AppState::InGame, map::create_tilemap)
+        //s.add_enter_system(AppState::InGame, map::create_tilemap)
         .add_enter_system(
             AppState::InGame,
             player::spawn_player, // ^TODO: use `run_if_resource_added`
