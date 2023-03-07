@@ -1,10 +1,13 @@
+mod map;
 pub mod plugins;
 mod resources;
+mod states;
 
 mod prelude {
     pub use bevy::prelude::*;
+    pub use iyes_loopless::prelude::*;
 
-    pub use crate::{plugins, resources::*};
+    pub use crate::{map::Tile, plugins, resources::*, states::*};
 }
 
 use bevy_common_assets::ron::RonAssetPlugin;
@@ -29,6 +32,7 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
+        .add_loopless_state(AppState::MainMenu)
         .add_plugin(RonAssetPlugin::<TileInfo>::new(&["tile.ron"]))
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
@@ -38,7 +42,9 @@ fn main() {
                 .with_system(assets::load_fonts)
                 .with_system(assets::load_textures)
                 .with_system(tiles::load_tileset),
-        );
+        )
+        .add_enter_system(AppState::MainMenu, transition_to_ingame)
+        .add_enter_system(AppState::InGame, map::create_tilemap);
 
     #[cfg(feature = "dev")]
     {
@@ -50,4 +56,9 @@ fn main() {
 
 fn setup_camera(mut cmds: Commands) {
     cmds.spawn(Camera2dBundle::default());
+}
+
+// ^TODO: build up menu scene instead
+fn transition_to_ingame(mut cmds: Commands) {
+    cmds.insert_resource(NextState(AppState::InGame));
 }

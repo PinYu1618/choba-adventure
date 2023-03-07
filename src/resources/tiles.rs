@@ -2,13 +2,6 @@ use bevy::reflect::TypeUuid;
 
 use crate::prelude::*;
 
-#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize)]
-pub enum Tile {
-    Floor,
-    Wall,
-    DownStairs,
-}
-
 #[derive(serde::Deserialize, TypeUuid)]
 #[uuid = "b746ca1f-db74-430b-9176-615a31d0933a"]
 pub struct TileInfo {
