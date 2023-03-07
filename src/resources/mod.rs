@@ -1,7 +1,7 @@
 pub mod assets;
-pub mod tiles;
+pub mod tileset;
 
 pub use self::{
     assets::{TilesAtlas, TilesImage, UiFont},
-    tiles::{TileInfo, Tileset},
+    tileset::{TileInfo, Tileset},
 };

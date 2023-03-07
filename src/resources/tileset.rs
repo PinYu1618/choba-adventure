@@ -17,13 +17,13 @@ pub struct Tileset {
 }
 
 impl Tileset {
-    pub fn get(&self, tiletype: &Tile) -> Handle<TileInfo> {
+    pub fn select(&self, tiletype: &Tile) -> Handle<TileInfo> {
         use Tile::*;
 
         match *tiletype {
             Floor => self.floor.clone(),
             Wall => self.wall.clone(),
-            DownStairs => todo!(),
+            DownStairs => self.downstairs.clone(),
         }
     }
 }

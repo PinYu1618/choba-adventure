@@ -1,3 +1,7 @@
+mod map;
+
+pub use self::map::MapBundle;
+
 use bevy_ecs_tilemap::{
     prelude::{
         get_tilemap_center_transform, TilemapId, TilemapSize, TilemapTexture, TilemapTileSize,
@@ -12,8 +16,9 @@ use crate::prelude::*;
 
 const MAP_TYPE: TilemapType = TilemapType::Square;
 
-#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize, Debug, Default)]
 pub enum Tile {
+    #[default]
     Floor,
     Wall,
     DownStairs,
@@ -22,28 +27,6 @@ pub enum Tile {
 impl Tile {
     pub fn opaque(self) -> bool {
         matches!(self, Self::Wall)
-    }
-}
-
-#[derive(Component)]
-pub struct Metamap {
-    width: i32,
-    height: i32,
-    tiles: Vec<Tile>,
-}
-
-impl BaseMap for Metamap {
-    fn get_pathing_distance(&self, idx1: usize, idx2: usize) -> f32 {
-        let w = self.width as usize;
-        let p1 = Point::new(idx1 % w, idx1 / w);
-        let p2 = Point::new(idx2 % w, idx2 / w);
-        DistanceAlg::Pythagoras.distance2d(p1, p2)
-    }
-}
-
-impl Algorithm2D for Metamap {
-    fn dimensions(&self) -> Point {
-        Point::new(self.width, self.height)
     }
 }
 

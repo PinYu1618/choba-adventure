@@ -1,10 +1,12 @@
 mod map;
+mod player;
 pub mod plugins;
 mod resources;
 mod states;
 
 mod prelude {
     pub use bevy::prelude::*;
+    pub use bevy_ecs_tilemap::prelude::{TilePos, TileStorage};
     pub use iyes_loopless::prelude::*;
 
     pub use crate::{map::Tile, plugins, resources::*, states::*};
@@ -41,10 +43,14 @@ fn main() {
             SystemSet::new()
                 .with_system(assets::load_fonts)
                 .with_system(assets::load_textures)
-                .with_system(tiles::load_tileset),
+                .with_system(tileset::load_tileset),
         )
         .add_enter_system(AppState::MainMenu, transition_to_ingame)
-        .add_enter_system(AppState::InGame, map::create_tilemap);
+        .add_enter_system(AppState::InGame, map::create_tilemap)
+        .add_enter_system(
+            AppState::InGame,
+            player::spawn_player, // ^TODO: use `run_if_resource_added`
+        );
 
     #[cfg(feature = "dev")]
     {
