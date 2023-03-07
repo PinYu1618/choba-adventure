@@ -29,7 +29,7 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
-        .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
+        .add_plugin(RonAssetPlugin::<TileInfo>::new(&["tile.ron"]))
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_startup_system(setup_camera)

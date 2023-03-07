@@ -1,9 +1,9 @@
 (
-    index: 845,
+    index: 27,
     fg: Rgba(
         red: 0.0,
-        green: 0.5,
-        blue: 0.5,
+        green: 1.0,
+        blue: 1.0,
         alpha: 1.0
     )
 )
