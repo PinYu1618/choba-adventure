@@ -25,7 +25,7 @@ pub struct Tile {
 }
 
 #[derive(Resource, Reflect, Default, AssetCollection)]
-pub struct TileData {
+pub struct Tileset {
     #[asset(path = "data/tiles/floor.tile.ron")]
     pub floor: Handle<Tile>,
     #[asset(path = "data/tiles/wall.tile.ron")]
@@ -34,7 +34,7 @@ pub struct TileData {
     pub downstairs: Handle<Tile>,
 }
 
-impl TileData {
+impl Tileset {
     pub fn select(&self, tiletype: &TileType) -> Handle<Tile> {
         use TileType::*;
 

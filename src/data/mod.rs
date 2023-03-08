@@ -7,6 +7,6 @@ mod tile;
 
 pub use self::{
     assets::{Atlases, Fonts, Textures},
-    mob::{Mob, MobData, MobType},
-    tile::{Tile, TileData, TileType},
+    mob::{Mob, MobType, Mobset},
+    tile::{Tile, TileType, Tileset},
 };

@@ -72,5 +72,11 @@ pub fn rooms_and_corridors() -> (Vec<Rect>, Schema) {
         }
     }
 
-    (rooms, Schema { tiles: map })
+    (
+        rooms,
+        Schema {
+            tiles: map,
+            size: IVec2 { x: 80, y: 50 },
+        },
+    )
 }

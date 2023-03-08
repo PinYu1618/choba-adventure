@@ -6,7 +6,10 @@ mod states;
 
 mod prelude {
     pub use bevy::prelude::*;
-    pub use bevy_ecs_tilemap::prelude::{TileColor, TilePos, TileStorage};
+    pub use bevy_ecs_tilemap::{
+        prelude::{TileColor, TilePos, TileStorage, TileTextureIndex},
+        tiles::TileBundle as TilemapTileBundle,
+    };
     pub use iyes_loopless::prelude::*;
 
     pub use crate::{data::*, plugins, states::*};
@@ -49,8 +52,8 @@ fn main() {
                 .with_collection::<Fonts>()
                 .with_collection::<Textures>()
                 .with_collection::<Atlases>()
-                .with_collection::<TileData>()
-                .with_collection::<MobData>(),
+                .with_collection::<Tileset>()
+                .with_collection::<Mobset>(),
         )
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
