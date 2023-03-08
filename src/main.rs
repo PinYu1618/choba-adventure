@@ -6,10 +6,10 @@ mod states;
 
 mod prelude {
     pub use bevy::prelude::*;
-    pub use bevy_ecs_tilemap::prelude::{TilePos, TileStorage};
+    pub use bevy_ecs_tilemap::prelude::{TileColor, TilePos, TileStorage};
     pub use iyes_loopless::prelude::*;
 
-    pub use crate::{map::Tile, plugins, resources::*, states::*};
+    pub use crate::{map::TileType, plugins, resources::*, states::*};
 }
 
 use bevy_common_assets::ron::RonAssetPlugin;
@@ -23,6 +23,7 @@ fn main() {
 
     app.insert_resource(ClearColor(CLEAR))
         .insert_resource(Msaa { samples: 1 })
+        .register_type::<Tile>()
         .add_plugins(
             DefaultPlugins
                 .set(WindowPlugin {
@@ -39,7 +40,7 @@ fn main() {
                 .set(ImagePlugin::default_nearest()),
         )
         .add_loopless_state(AppState::MainMenu)
-        .add_plugin(RonAssetPlugin::<TileInfo>::new(&["tile.ron"]))
+        .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_startup_system(setup_camera)
@@ -50,7 +51,7 @@ fn main() {
                 .with_system(tileset::load_tileset),
         )
         .add_enter_system(AppState::MainMenu, transition_to_ingame)
-        //s.add_enter_system(AppState::InGame, map::create_tilemap)
+        .add_enter_system(AppState::InGame, map::setup_map)
         .add_enter_system(
             AppState::InGame,
             player::spawn_player, // ^TODO: use `run_if_resource_added`

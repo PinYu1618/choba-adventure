@@ -10,12 +10,15 @@ use bracket_pathfinding::prelude::{Algorithm2D, BaseMap, DistanceAlg, Point, Sma
 
 use crate::prelude::*;
 
-#[derive(Component, Debug, Default, Clone)]
-pub struct Map;
+#[derive(Resource)]
+pub struct Map(pub Vec<TileType>);
+
+pub fn xy_idx(x: i32, y: i32) -> usize {
+    (y as usize * 80) + x as usize
+}
 
 #[derive(Bundle, Debug, Default, Clone)]
 pub struct MapBundle {
-    pub map: Map,
     pub grid_size: TilemapGridSize,
     pub map_type: TilemapType,
     pub size: TilemapSize,

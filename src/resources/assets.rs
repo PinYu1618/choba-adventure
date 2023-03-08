@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 const IBM_BIOS_FONT: &str = "fonts/IBM_BIOS.ttf";
-const TILES_IMAGE: &str = "textures/monochrome-transparent.png";
+const TILES: &str = "textures/tiles.png";
 
 #[derive(Resource, Deref)]
 pub struct UiFont(Handle<Font>);
@@ -20,7 +20,7 @@ pub fn load_textures(
     ass: Res<AssetServer>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    let tiles_image: Handle<Image> = ass.load(TILES_IMAGE);
+    let tiles_image: Handle<Image> = ass.load(TILES);
     let tiles_atlas = TextureAtlas::from_grid(
         tiles_image.clone(),
         Vec2::new(16.0, 16.0),
