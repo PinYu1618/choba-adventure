@@ -32,7 +32,7 @@ fn apply_vertical_tunnel(map: &mut [TileType], y1: i32, y2: i32, x: i32) {
 
 /// Makes a new map using the algorithm from http://rogueliketutorials.com/tutorials/tcod/part-3/
 /// This gives a handful of random rooms and corridors joining them together.
-pub fn rooms_and_corridors() -> (Vec<Rect>, Schema) {
+pub fn rooms_and_corridors() -> Schema {
     let mut map = vec![TileType::Wall; 80 * 50];
     let mut rng = RandomNumberGenerator::new();
 
@@ -72,11 +72,9 @@ pub fn rooms_and_corridors() -> (Vec<Rect>, Schema) {
         }
     }
 
-    (
-        rooms,
-        Schema {
-            tiles: map,
-            size: IVec2 { x: 80, y: 50 },
-        },
-    )
+    Schema {
+        tiles: map,
+        size: IVec2 { x: 80, y: 50 },
+        mob_spawns: rooms.into_iter().map(|room| room.center()).collect(),
+    }
 }

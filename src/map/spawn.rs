@@ -61,8 +61,8 @@ pub fn tiles_map(
 pub fn mobs_map(
     cmds: &mut Commands,
     tiles_image: &Res<Textures>,
-    tileset: Res<Mobset>,
-    tiles: Res<Assets<Mob>>,
+    mobset: Res<Mobset>,
+    mobs: Res<Assets<Mob>>,
     schema: &Schema,
 ) {
     let map_size = TilemapSize {
@@ -72,24 +72,22 @@ pub fn mobs_map(
     let mut tile_storage = TileStorage::empty(map_size);
     let tilemap_entity = cmds.spawn_empty().id();
 
-    for x in 0..map_size.x {
-        for y in 0..map_size.y {
-            let tile_pos = TilePos { x, y };
-            //let tiletype: MobType = schema.tiles[xy_idx(x as i32, y as i32)];
-            //let tile_handle = tileset.select(&tiletype);
-            //let tile = tiles.get(&tile_handle).unwrap();
-            let tile_entity = cmds
-                .spawn(TilemapTileBundle {
-                    position: tile_pos,
-                    tilemap_id: TilemapId(tilemap_entity),
-                    texture_index: TileTextureIndex(70),
-                    color: TileColor(Color::WHITE),
-                    ..default()
-                })
-                .id();
-            tile_storage.set(&tile_pos, tile_entity);
-        }
-    }
+    schema.mob_spawns.iter().for_each(|(x, y)| {
+        let tile_pos = TilePos {
+            x: *x as u32,
+            y: *y as u32,
+        };
+        let tile_entity = cmds
+            .spawn(TilemapTileBundle {
+                position: tile_pos,
+                tilemap_id: TilemapId(tilemap_entity),
+                texture_index: TileTextureIndex(70),
+                color: TileColor(Color::WHITE),
+                ..default()
+            })
+            .id();
+        tile_storage.set(&tile_pos, tile_entity);
+    });
 
     let tile_size = TilemapTileSize { x: 16.0, y: 16.0 };
     let grid_size = tile_size.into();

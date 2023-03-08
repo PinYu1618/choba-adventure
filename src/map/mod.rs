@@ -27,7 +27,7 @@ pub fn setup_map(
     tiles: Res<Assets<Tile>>,
     (mobset, mobs): (Res<Mobset>, Res<Assets<Mob>>),
 ) {
-    let (_, map) = helpers::rooms_and_corridors();
-    spawn::tiles_map(&mut cmds, &tiles_image, tileset, tiles, &map);
-    spawn::mobs_map(&mut cmds, &tiles_image, mobset, mobs, &map);
+    let schema = helpers::rooms_and_corridors();
+    spawn::tiles_map(&mut cmds, &tiles_image, tileset, tiles, &schema);
+    spawn::mobs_map(&mut cmds, &tiles_image, mobset, mobs, &schema);
 }

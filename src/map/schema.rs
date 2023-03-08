@@ -4,6 +4,7 @@ use crate::prelude::*;
 pub struct Schema {
     pub tiles: Vec<TileType>,
     pub size: IVec2,
+    pub mob_spawns: Vec<(i32, i32)>,
 }
 
 impl Schema {
