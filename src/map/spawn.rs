@@ -5,7 +5,7 @@ const MAP_TYPE: TilemapType = TilemapType::Square;
 pub fn spawn_tilemap(
     cmds: &mut Commands,
     tiles_image: Res<TextureAssets>,
-    tileset: Res<Tileset>,
+    tileset: Res<TileAssets>,
     tiles: Res<Assets<Tile>>,
     schema: &Schema,
 ) {

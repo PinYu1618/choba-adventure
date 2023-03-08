@@ -1,3 +1,3 @@
 mod dev;
 
-pub use dev::DevPlugin;
+pub use self::dev::DevPlugin;

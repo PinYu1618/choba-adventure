@@ -22,17 +22,8 @@ const TITLE: &str = "Choba Adventure";
 fn main() {
     let mut app = App::new();
 
-    app.add_loopless_state(AppState::AssetsLoading)
-        .add_loading_state(
-            LoadingState::new(AppState::AssetsLoading)
-                .continue_to_state(AppState::MainMenu)
-                .with_collection::<FontAssets>()
-                .with_collection::<TextureAssets>()
-                .with_collection::<AtlasAssets>(),
-        )
-        .insert_resource(ClearColor(CLEAR))
+    app.insert_resource(ClearColor(CLEAR))
         .insert_resource(Msaa { samples: 1 })
-        //.register_type::<Tile>()
         .add_plugins(
             DefaultPlugins
                 .set(WindowPlugin {
@@ -48,17 +39,26 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
-        //.add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
-        //.add_plugin(bevy_ecs_tilemap::TilemapPlugin)
-        //.add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
+        .register_type::<Tile>()
+        .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
+        .add_loopless_state(AppState::AssetsLoading)
+        .add_loading_state(
+            LoadingState::new(AppState::AssetsLoading)
+                .continue_to_state(AppState::MainMenu)
+                .with_collection::<FontAssets>()
+                .with_collection::<TextureAssets>()
+                .with_collection::<AtlasAssets>()
+                .with_collection::<TileAssets>(),
+        )
+        .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
+        .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_startup_system(setup_camera)
-        //.add_startup_system_set(SystemSet::new().with_system(tileset::load_tileset))
-        .add_enter_system(AppState::MainMenu, transition_to_ingame);
-    //.add_enter_system(AppState::InGame, map::setup_map)
-    //.add_enter_system(
-    //  AppState::InGame,
-    //player::spawn_player, // ^TODO: use `run_if_resource_added`
-    //);
+        .add_enter_system(AppState::MainMenu, transition_to_ingame)
+        .add_enter_system(AppState::InGame, map::setup_map)
+        .add_enter_system(
+            AppState::InGame,
+            player::spawn_player, // ^TODO: use `run_if_resource_added`
+        );
 
     #[cfg(feature = "dev")]
     {

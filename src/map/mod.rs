@@ -37,7 +37,7 @@ impl TileType {
 pub fn setup_map(
     mut cmds: Commands,
     tiles_image: Res<TextureAssets>,
-    tileset: Res<Tileset>,
+    tileset: Res<TileAssets>,
     tiles: Res<Assets<Tile>>,
 ) {
     let (_, map) = helpers::rooms_and_corridors();
