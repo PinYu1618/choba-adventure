@@ -72,5 +72,5 @@ pub fn rooms_and_corridors() -> (Vec<Rect>, Schema) {
         }
     }
 
-    (rooms, Schema(map))
+    (rooms, Schema { tiles: map })
 }

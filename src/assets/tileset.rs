@@ -17,7 +17,6 @@ pub struct Tileset {
 }
 
 impl Tileset {
-    #[allow(unused)]
     pub fn select(&self, tiletype: &TileType) -> Handle<Tile> {
         use TileType::*;
 

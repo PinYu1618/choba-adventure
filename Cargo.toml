@@ -23,6 +23,10 @@ version = "0.9"
 #default-features = false
 #features = ["bevy_asset", "bevy_winit", "bevy_render", "png", "x11"]
 
+[dependencies.bevy_asset_loader]
+version = "0.14.1"
+features = ["stageless", "2d"]
+
 [profile.dev]
 opt-level = 1
 

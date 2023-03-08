@@ -36,7 +36,7 @@ impl TileType {
 
 pub fn setup_map(
     mut cmds: Commands,
-    tiles_image: Res<TilesImage>,
+    tiles_image: Res<TextureAssets>,
     tileset: Res<Tileset>,
     tiles: Res<Assets<Tile>>,
 ) {

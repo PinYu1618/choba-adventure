@@ -11,7 +11,7 @@ pub struct PlayerBundle {
     pub tilepos: TilePos,
 }
 
-pub fn spawn_player(mut cmds: Commands, atlas: Res<TilesAtlas>) {
+pub fn spawn_player(mut cmds: Commands, atlas: Res<AtlasAssets>) {
     cmds.spawn(PlayerBundle {
         player: Player,
         name: Name::new("Choba"),
@@ -21,7 +21,7 @@ pub fn spawn_player(mut cmds: Commands, atlas: Res<TilesAtlas>) {
                 color: Color::YELLOW,
                 ..default()
             },
-            texture_atlas: atlas.clone(),
+            texture_atlas: atlas.onebit_mono.clone(),
             ..default()
         },
         tilepos: TilePos { x: 40, y: 0 },

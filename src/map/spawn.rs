@@ -4,10 +4,10 @@ const MAP_TYPE: TilemapType = TilemapType::Square;
 
 pub fn spawn_tilemap(
     cmds: &mut Commands,
-    tiles_image: Res<TilesImage>,
+    tiles_image: Res<TextureAssets>,
     tileset: Res<Tileset>,
     tiles: Res<Assets<Tile>>,
-    map: &Schema,
+    schema: &Schema,
 ) {
     let map_size = TilemapSize { x: 80, y: 50 };
     let mut tile_storage = TileStorage::empty(map_size);
@@ -16,7 +16,7 @@ pub fn spawn_tilemap(
     for x in 0..map_size.x {
         for y in 0..map_size.y {
             let tile_pos = TilePos { x, y };
-            let tiletype: TileType = map.0[xy_idx(x as i32, y as i32)];
+            let tiletype: TileType = schema.tiles[xy_idx(x as i32, y as i32)];
             let tile_handle = tileset.select(&tiletype);
             let tile = tiles.get(&tile_handle).unwrap();
             let tile_entity = cmds
@@ -40,7 +40,7 @@ pub fn spawn_tilemap(
         size: map_size,
         storage: tile_storage,
         map_type: MAP_TYPE,
-        texture: TilemapTexture::Single(tiles_image.clone()),
+        texture: TilemapTexture::Single(tiles_image.tiles.clone()),
         tile_size,
         spacing: TilemapSpacing { x: 1.0, y: 1.0 },
         transform: get_tilemap_center_transform(&map_size, &grid_size, &MAP_TYPE, 0.0),
