@@ -11,7 +11,7 @@ pub struct PlayerBundle {
     pub tilepos: TilePos,
 }
 
-pub fn spawn_player(mut cmds: Commands, atlas: Res<AtlasAssets>) {
+pub fn spawn_player(mut cmds: Commands, atlas: Res<Atlases>) {
     cmds.spawn(PlayerBundle {
         player: Player,
         name: Name::new("Choba"),

@@ -1,4 +1,4 @@
-mod assets;
+mod data;
 mod map;
 mod player;
 pub mod plugins;
@@ -9,7 +9,7 @@ mod prelude {
     pub use bevy_ecs_tilemap::prelude::{TileColor, TilePos, TileStorage};
     pub use iyes_loopless::prelude::*;
 
-    pub use crate::{assets::*, map::TileType, plugins, states::*};
+    pub use crate::{data::*, plugins, states::*};
 }
 
 use bevy_asset_loader::prelude::*;
@@ -41,14 +41,16 @@ fn main() {
         )
         .register_type::<Tile>()
         .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
+        .add_plugin(RonAssetPlugin::<Mob>::new(&["mob.ron"]))
         .add_loopless_state(AppState::AssetsLoading)
         .add_loading_state(
             LoadingState::new(AppState::AssetsLoading)
                 .continue_to_state(AppState::MainMenu)
-                .with_collection::<FontAssets>()
-                .with_collection::<TextureAssets>()
-                .with_collection::<AtlasAssets>()
-                .with_collection::<TileAssets>(),
+                .with_collection::<Fonts>()
+                .with_collection::<Textures>()
+                .with_collection::<Atlases>()
+                .with_collection::<TileData>()
+                .with_collection::<MobData>(),
         )
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)

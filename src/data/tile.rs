@@ -1,7 +1,21 @@
 use bevy::reflect::TypeUuid;
 
 use super::*;
-use crate::prelude::*;
+
+#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize, Debug, Default)]
+pub enum TileType {
+    #[default]
+    Floor,
+    Wall,
+    DownStairs,
+}
+
+impl TileType {
+    #[allow(unused)]
+    pub fn opaque(self) -> bool {
+        matches!(self, Self::Wall)
+    }
+}
 
 #[derive(serde::Deserialize, TypeUuid, Reflect)]
 #[uuid = "b746ca1f-db74-430b-9176-615a31d0933a"]
@@ -11,7 +25,7 @@ pub struct Tile {
 }
 
 #[derive(Resource, Reflect, Default, AssetCollection)]
-pub struct TileAssets {
+pub struct TileData {
     #[asset(path = "data/tiles/floor.tile.ron")]
     pub floor: Handle<Tile>,
     #[asset(path = "data/tiles/wall.tile.ron")]
@@ -20,7 +34,7 @@ pub struct TileAssets {
     pub downstairs: Handle<Tile>,
 }
 
-impl TileAssets {
+impl TileData {
     pub fn select(&self, tiletype: &TileType) -> Handle<Tile> {
         use TileType::*;
 

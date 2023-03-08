@@ -19,25 +19,10 @@ use bevy_ecs_tilemap::{
 
 use crate::prelude::*;
 
-#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize, Debug, Default)]
-pub enum TileType {
-    #[default]
-    Floor,
-    Wall,
-    DownStairs,
-}
-
-impl TileType {
-    #[allow(unused)]
-    pub fn opaque(self) -> bool {
-        matches!(self, Self::Wall)
-    }
-}
-
 pub fn setup_map(
     mut cmds: Commands,
-    tiles_image: Res<TextureAssets>,
-    tileset: Res<TileAssets>,
+    tiles_image: Res<Textures>,
+    tileset: Res<TileData>,
     tiles: Res<Assets<Tile>>,
 ) {
     let (_, map) = helpers::rooms_and_corridors();
