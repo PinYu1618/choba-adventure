@@ -21,7 +21,7 @@ pub fn tiles_map(
         y: schema.height() as u32,
     };
     let mut tile_storage = TileStorage::empty(map_size);
-    let tilemap_entity = cmds.spawn_empty().id();
+    let tilemap_entity = cmds.spawn(GameUnload).id();
 
     for x in 0..map_size.x {
         for y in 0..map_size.y {
@@ -70,7 +70,7 @@ pub fn mobs_map(
         y: schema.height() as u32,
     };
     let mut tile_storage = TileStorage::empty(map_size);
-    let tilemap_entity = cmds.spawn_empty().id();
+    let tilemap_entity = cmds.spawn((GameUnload, Name::new("Mobs Map"))).id();
 
     schema.mob_spawns.iter().for_each(|(x, y)| {
         let tile_pos = TilePos {
@@ -78,13 +78,17 @@ pub fn mobs_map(
             y: *y as u32,
         };
         let tile_entity = cmds
-            .spawn(TilemapTileBundle {
-                position: tile_pos,
-                tilemap_id: TilemapId(tilemap_entity),
-                texture_index: TileTextureIndex(70),
-                color: TileColor(Color::WHITE),
-                ..default()
-            })
+            .spawn((
+                TilemapTileBundle {
+                    position: tile_pos,
+                    tilemap_id: TilemapId(tilemap_entity),
+                    texture_index: TileTextureIndex(70),
+                    color: TileColor(Color::WHITE),
+                    ..default()
+                },
+                Name::new("Mob"),
+                GameUnload,
+            ))
             .id();
         tile_storage.set(&tile_pos, tile_entity);
     });

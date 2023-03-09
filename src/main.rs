@@ -1,5 +1,6 @@
 mod data;
 mod map;
+mod misc;
 mod player;
 pub mod plugins;
 mod states;
@@ -12,7 +13,7 @@ mod prelude {
     };
     pub use iyes_loopless::prelude::*;
 
-    pub use crate::{data::*, plugins, states::*};
+    pub use crate::{data::*, misc::*, plugins, states::*};
 }
 
 use bevy_asset_loader::prelude::*;
@@ -58,11 +59,21 @@ fn main() {
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_startup_system(setup_camera)
-        .add_enter_system(AppState::MainMenu, transition_to_ingame)
         .add_enter_system(AppState::InGame, map::setup_map)
         .add_enter_system(
             AppState::InGame,
             player::spawn_player, // ^TODO: use `run_if_resource_added`
+        )
+        .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
+        .add_system(
+            to_main_menu
+                .run_if(esc_just_pressed)
+                .run_in_state(AppState::InGame),
+        )
+        .add_system(
+            quit_app
+                .run_if(esc_just_pressed)
+                .run_in_state(AppState::MainMenu),
         );
 
     #[cfg(feature = "dev")]
@@ -75,9 +86,4 @@ fn main() {
 
 fn setup_camera(mut cmds: Commands) {
     cmds.spawn(Camera2dBundle::default());
-}
-
-// ^TODO: build up menu scene instead
-fn transition_to_ingame(mut cmds: Commands) {
-    cmds.insert_resource(NextState(AppState::InGame));
 }
