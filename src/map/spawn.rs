@@ -65,7 +65,7 @@ pub fn mobs_map(
     cmds: &mut Commands,
     tiles_image: &Res<Textures>,
     _mobset: Res<Mobset>,
-    _mobs: Res<Assets<Mob>>,
+    _mobs: Res<Assets<MobData>>,
     schema: &Schema,
 ) {
     let map_size = TilemapSize {

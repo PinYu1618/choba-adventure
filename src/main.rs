@@ -1,4 +1,3 @@
-mod assets;
 mod components;
 mod map;
 mod misc;
@@ -15,7 +14,7 @@ mod prelude {
     };
     pub use iyes_loopless::prelude::*;
 
-    pub use crate::{assets::*, components::*, misc::*, plugins, resources::*, states::*};
+    pub use crate::{components::*, misc::*, plugins, resources::*, states::*};
 }
 
 use bevy_asset_loader::prelude::*;
@@ -50,7 +49,7 @@ fn main() {
         )
         .register_type::<Tile>()
         .add_plugin(RonAssetPlugin::<Tile>::new(&["tile.ron"]))
-        .add_plugin(RonAssetPlugin::<Mob>::new(&["mob.ron"]))
+        .add_plugin(RonAssetPlugin::<MobData>::new(&["mob.ron"]))
         .add_loopless_state(AppState::AssetsLoading)
         .add_loading_state(
             LoadingState::new(AppState::AssetsLoading)

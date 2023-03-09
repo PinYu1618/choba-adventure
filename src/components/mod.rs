@@ -2,10 +2,10 @@ use bevy_asset_loader::prelude::*;
 
 use crate::prelude::*;
 
-mod mob;
+mod mobs;
 mod tile;
 
 pub use self::{
-    mob::MobComp,
+    mobs::{Mob, MobBundle},
     tile::{Tile, TileType, Tileset},
 };

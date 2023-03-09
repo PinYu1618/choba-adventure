@@ -8,7 +8,7 @@ pub enum MobType {
 
 #[derive(serde::Deserialize, TypeUuid, Reflect)]
 #[uuid = "82f8783f-af2e-4cad-bcaa-b484df6506c8"]
-pub struct Mob {
+pub struct MobData {
     pub index: u32,
     pub fg: Color,
 }
@@ -16,14 +16,14 @@ pub struct Mob {
 #[derive(Resource, Reflect, Default, AssetCollection)]
 pub struct Mobset {
     #[asset(path = "data/mob/goblin.mob.ron")]
-    pub goblin: Handle<Mob>,
+    pub goblin: Handle<MobData>,
     #[asset(path = "data/mob/orc.mob.ron")]
-    pub orc: Handle<Mob>,
+    pub orc: Handle<MobData>,
 }
 
 impl Mobset {
     #[allow(unused)]
-    pub fn select(&self, mobtype: &MobType) -> Handle<Mob> {
+    pub fn select(&self, mobtype: &MobType) -> Handle<MobData> {
         use MobType::*;
 
         match *mobtype {

@@ -25,7 +25,7 @@ pub fn setup_map(
     tiles_image: Res<Textures>,
     tileset: Res<Tileset>,
     tiles: Res<Assets<Tile>>,
-    (mobset, mobs): (Res<Mobset>, Res<Assets<Mob>>),
+    (mobset, mobs): (Res<Mobset>, Res<Assets<MobData>>),
 ) {
     let schema = helpers::rooms_and_corridors();
     spawn::tiles_map(&mut cmds, &tiles_image, tileset, tiles, &schema);
