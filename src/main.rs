@@ -22,6 +22,7 @@ use prelude::*;
 
 const CLEAR: Color = Color::BLACK;
 const TITLE: &str = "Choba Adventure";
+const CANVAS: &str = "#canvas";
 
 fn main() {
     let mut app = App::new();
@@ -33,6 +34,8 @@ fn main() {
                 .set(WindowPlugin {
                     window: WindowDescriptor {
                         title: TITLE.to_string(),
+                        canvas: Some(CANVAS.to_owned()),
+                        fit_canvas_to_parent: true,
                         ..default()
                     },
                     ..default()
@@ -58,23 +61,24 @@ fn main() {
         )
         .add_plugin(bevy_ecs_tilemap::TilemapPlugin)
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
+        .add_plugin(plugins::MainMenuPlugin)
         .add_startup_system(setup_camera)
-        .add_enter_system(AppState::InGame, map::setup_map)
-        .add_enter_system(
-            AppState::InGame,
-            player::spawn_player, // ^TODO: use `run_if_resource_added`
-        )
-        .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
-        .add_system(
-            to_main_menu
-                .run_if(esc_just_pressed)
-                .run_in_state(AppState::InGame),
-        )
-        .add_system(
-            quit_app
-                .run_if(esc_just_pressed)
-                .run_in_state(AppState::MainMenu),
-        );
+        .add_enter_system(AppState::InGame, map::setup_map);
+    /*.add_enter_system(
+        AppState::InGame,
+        player::spawn_player, // ^TODO: use `run_if_resource_added`
+    )
+    .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
+    .add_system(
+        to_main_menu
+            .run_if(esc_just_pressed)
+            .run_in_state(AppState::InGame),
+    )
+    .add_system(
+        quit_app
+            .run_if(esc_just_pressed)
+            .run_in_state(AppState::MainMenu),
+    );*/
 
     #[cfg(feature = "dev")]
     {
