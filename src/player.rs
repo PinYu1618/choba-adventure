@@ -9,13 +9,13 @@ pub struct PlayerBundle {
     pub name: Name,
     pub sprite: SpriteSheetBundle,
     pub tilepos: TilePos,
-    //pub game_unload: GameUnload,
+    pub game_unload: GameUnload,
 }
 
 pub fn spawn_player(mut cmds: Commands, atlas: Res<Atlases>) {
     cmds.spawn(PlayerBundle {
         player: Player,
-        //game_unload: GameUnload,
+        game_unload: GameUnload,
         name: Name::new("Choba"),
         sprite: SpriteSheetBundle {
             sprite: TextureAtlasSprite {

@@ -30,13 +30,16 @@ pub fn tiles_map(
             let tile_handle = tileset.select(&tiletype);
             let tile = tiles.get(&tile_handle).unwrap();
             let tile_entity = cmds
-                .spawn(TilemapTileBundle {
-                    position: tile_pos,
-                    tilemap_id: TilemapId(tilemap_entity),
-                    texture_index: TileTextureIndex(tile.index),
-                    color: TileColor(tile.fg),
-                    ..default()
-                })
+                .spawn((
+                    TilemapTileBundle {
+                        position: tile_pos,
+                        tilemap_id: TilemapId(tilemap_entity),
+                        texture_index: TileTextureIndex(tile.index),
+                        color: TileColor(tile.fg),
+                        ..default()
+                    },
+                    GameUnload,
+                ))
                 .id();
             tile_storage.set(&tile_pos, tile_entity);
         }

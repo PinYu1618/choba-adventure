@@ -1,12 +1,15 @@
 # Choba Adventure
 
-## Keys
+🚧 (WIP)
 
-- **Esc**: If in `MainMenu`, quit app. If in `InGame`, back to `MainMenu`
+## ⌨️ Keys
+
+(TODO)
+
+- `Esc`: If in main menu, quit app. If in game, back to main menu
 
 * Only when run with feature `dev`:
-  - **Enter**: If in `MainMenu`, enter `InGame`
-  * **LShift + Esc**: Quit app
-  * **Del**: Restart game. This will exit `InGame` then enter `InGame` again
+  - `LShift` + `Return`: If in main menu, enter game
+  * `LShift` + `Esc`: Quit app
 
-## Credits
+## 📓 Credits
