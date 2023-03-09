@@ -1,7 +1,6 @@
 mod components;
 mod map;
 mod misc;
-mod player;
 pub mod plugins;
 mod resources;
 mod states;
@@ -65,10 +64,7 @@ fn main() {
         .add_plugin(plugins::MainMenuPlugin)
         .add_startup_system(setup_camera)
         .add_enter_system(AppState::InGame, map::setup_map)
-        .add_enter_system(
-            AppState::InGame,
-            player::spawn_player, // ^TODO: use `run_if_resource_added`
-        )
+        .add_plugin(plugins::SpawnPlugin)
         .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
         .add_system(
             to_main_menu
