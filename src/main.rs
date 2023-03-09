@@ -1,8 +1,10 @@
-mod data;
+mod assets;
+mod components;
 mod map;
 mod misc;
 mod player;
 pub mod plugins;
+mod resources;
 mod states;
 
 mod prelude {
@@ -13,7 +15,7 @@ mod prelude {
     };
     pub use iyes_loopless::prelude::*;
 
-    pub use crate::{data::*, misc::*, plugins, states::*};
+    pub use crate::{assets::*, components::*, misc::*, plugins, resources::*, states::*};
 }
 
 use bevy_asset_loader::prelude::*;
@@ -63,22 +65,22 @@ fn main() {
         .add_plugins(bevy_ui_navigation::DefaultNavigationPlugins)
         .add_plugin(plugins::MainMenuPlugin)
         .add_startup_system(setup_camera)
-        .add_enter_system(AppState::InGame, map::setup_map);
-    /*.add_enter_system(
-        AppState::InGame,
-        player::spawn_player, // ^TODO: use `run_if_resource_added`
-    )
-    .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
-    .add_system(
-        to_main_menu
-            .run_if(esc_just_pressed)
-            .run_in_state(AppState::InGame),
-    )
-    .add_system(
-        quit_app
-            .run_if(esc_just_pressed)
-            .run_in_state(AppState::MainMenu),
-    );*/
+        .add_enter_system(AppState::InGame, map::setup_map)
+        .add_enter_system(
+            AppState::InGame,
+            player::spawn_player, // ^TODO: use `run_if_resource_added`
+        )
+        .add_exit_system(AppState::InGame, cleanup_on::<GameUnload>)
+        .add_system(
+            to_main_menu
+                .run_if(esc_just_pressed)
+                .run_in_state(AppState::InGame),
+        )
+        .add_system(
+            quit_app
+                .run_if(esc_just_pressed)
+                .run_in_state(AppState::MainMenu),
+        );
 
     #[cfg(feature = "dev")]
     {

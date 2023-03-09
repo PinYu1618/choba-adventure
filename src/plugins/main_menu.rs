@@ -30,13 +30,6 @@ struct Menu;
 #[derive(Debug, Component)]
 struct Selected;
 
-#[derive(Debug, Component, Default, Hash, PartialEq, Eq)]
-enum Selection {
-    #[default]
-    NewGame,
-    Quit,
-}
-
 /// Marker for the "Quit" button
 #[derive(Component)]
 struct QuitButt;
@@ -44,21 +37,6 @@ struct QuitButt;
 /// Marker for the "New Adventure" button
 #[derive(Component)]
 struct EnterButt;
-
-impl Selection {
-    fn try_up(&mut self) {
-        match self {
-            Self::NewGame => return,
-            Self::Quit => *self = Self::NewGame,
-        }
-    }
-    fn try_down(&mut self) {
-        match self {
-            Self::NewGame => *self = Self::Quit,
-            Self::Quit => return,
-        }
-    }
-}
 
 #[allow(unused)]
 #[derive(Debug, SystemLabel, PartialEq, Eq, Clone, Hash)]
@@ -136,39 +114,7 @@ fn setup(mut cmd: Commands, ui_font: Res<Fonts>) {
         })
         .id();
 
-    cmd.spawn(Selection::default());
-
     cmd.entity(menu).push_children(&[butt_start, butt_quit]);
-}
-
-fn change_selection(kb: Res<Input<KeyCode>>, mut selection_q: Query<&mut Selection>) {
-    if kb.any_just_pressed([KeyCode::Up, KeyCode::PageUp]) {
-        info!("Up pressed");
-        selection_q.single_mut().try_up();
-    }
-    if kb.any_just_pressed([KeyCode::Down, KeyCode::PageDown]) {
-        info!("Down pressed");
-        selection_q.single_mut().try_down();
-    }
-}
-
-fn select(
-    mut cmd: Commands,
-    kb: Res<Input<KeyCode>>,
-    selection_q: Query<&Selection>,
-    mut exit: EventWriter<AppExit>,
-) {
-    if kb.any_just_released([KeyCode::Return, KeyCode::NumpadEnter]) {
-        info!("Enter pressed");
-        match selection_q.single() {
-            Selection::NewGame => {
-                cmd.insert_resource(NextState(AppState::InGame));
-            }
-            Selection::Quit => {
-                exit.send(AppExit);
-            }
-        }
-    }
 }
 
 /// Handler for the Enter Game button

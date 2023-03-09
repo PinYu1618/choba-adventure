@@ -1,12 +1,11 @@
-use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 
-mod assets;
+use crate::prelude::*;
+
 mod mob;
 mod tile;
 
 pub use self::{
-    assets::{Atlases, Fonts, Textures},
-    mob::{Mob, MobType, Mobset},
+    mob::MobComp,
     tile::{Tile, TileType, Tileset},
 };

@@ -1169,6 +1169,7 @@ dependencies = [
  "bracket-pathfinding",
  "bracket-random",
  "iyes_loopless",
+ "ron 0.8.0",
  "serde",
 ]
 

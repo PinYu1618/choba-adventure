@@ -1,10 +1,8 @@
-use bevy::reflect::TypeUuid;
-
 use super::*;
 
-#[derive(PartialEq, Eq, Hash, Clone, Copy, serde::Deserialize, Debug)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy, Deserialize, Debug)]
 pub enum MobType {
-    GobLin,
+    Goblin,
     Orc,
 }
 
@@ -24,6 +22,7 @@ pub struct Mobset {
 }
 
 impl Mobset {
+    #[allow(unused)]
     pub fn select(&self, mobtype: &MobType) -> Handle<Mob> {
         use MobType::*;
 
