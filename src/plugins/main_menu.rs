@@ -117,7 +117,7 @@ fn setup(mut cmd: Commands, ui_font: Res<Fonts>) {
 /// Handler for the Enter Game button
 fn butt_game(mut cmd: Commands) {
     // queue state transition
-    cmd.insert_resource(NextState(AppState::InGame));
+    cmd.insert_resource(NextState(AppState::DungeonCrawl));
 }
 
 /// Handler for the Quit button

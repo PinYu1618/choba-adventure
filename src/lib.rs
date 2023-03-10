@@ -39,18 +39,18 @@ impl Plugin for GamePlugin {
         app.add_plugin(bevy_ecs_tilemap::TilemapPlugin);
 
         app.add_loopless_state(AppState::AssetsLoading)
+            .add_loopless_state(DungeonState::default())
             .add_loopless_state(TurnState::Paused)
             .add_loading_state(
                 LoadingState::new(AppState::AssetsLoading)
                     //.continue_to_state(AppState::MainMenu)
-                    .continue_to_state(AppState::InGame)
+                    .continue_to_state(AppState::DungeonCrawl)
                     .with_collection::<Fonts>()
                     .with_collection::<Textures>()
                     .with_collection::<Atlases>(),
             )
             .add_plugin(plugins::MainMenuPlugin)
-            .add_plugin(plugins::MainGamePlugin)
-            .add_plugin(plugins::SpawnPlugin)
+            .add_plugin(plugins::DungeonCrawlPlugin)
             .add_startup_system(setup);
 
         #[cfg(feature = "dev")]
@@ -70,10 +70,6 @@ pub fn quit_app(mut exit: EventWriter<AppExit>) {
 
 pub fn to_main_menu(mut cmds: Commands) {
     cmds.insert_resource(NextState(AppState::MainMenu));
-}
-
-pub fn to_ingame(mut cmds: Commands) {
-    cmds.insert_resource(NextState(AppState::InGame));
 }
 
 pub fn esc_just_pressed(kb: Res<Input<KeyCode>>) -> bool {

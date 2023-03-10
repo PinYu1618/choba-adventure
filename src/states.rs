@@ -2,7 +2,15 @@
 pub enum AppState {
     AssetsLoading,
     MainMenu,
-    InGame,
+    DungeonCrawl,
+}
+
+#[derive(Hash, Default, Copy, Clone, Debug, PartialEq, Eq)]
+pub enum DungeonState {
+    #[default]
+    Disabled,
+    Mapgen,
+    Ticking,
 }
 
 #[derive(Hash, Copy, Clone, Debug, PartialEq, Eq)]

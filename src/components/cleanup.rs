@@ -1,4 +1,5 @@
 use crate::prelude::*;
 
-#[derive(Component, Debug)]
+#[derive(Component, Reflect, Default, Debug)]
+#[reflect(Component)]
 pub struct GameCleanup;
