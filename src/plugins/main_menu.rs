@@ -18,7 +18,7 @@ impl Plugin for MainMenuPlugin {
             )
             .add_exit_system(
                 AppState::MainMenu,
-                cleanup_on::<Menu>.label(MenuSystems::Cleanup),
+                despawn_with::<Menu>.label(MenuSystems::Cleanup),
             );
     }
 }
@@ -26,9 +26,6 @@ impl Plugin for MainMenuPlugin {
 // Marker Component for main menu
 #[derive(Debug, Component)]
 struct Menu;
-
-#[derive(Debug, Component)]
-struct Selected;
 
 /// Marker for the "Quit" button
 #[derive(Component)]
