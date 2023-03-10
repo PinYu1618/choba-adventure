@@ -1,6 +1,6 @@
 use bevy::app::AppExit;
 
-use crate::prelude::*;
+use crate::*;
 
 pub struct MainMenuPlugin;
 

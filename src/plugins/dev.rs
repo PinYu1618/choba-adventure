@@ -8,11 +8,6 @@ impl Plugin for DevPlugin {
             .add_system(print_state_on_change)
             .add_system(clear_on_del.run_if(in_game))
             .add_system(quit_app.run_if(lshift_esc_pressed))
-            .add_system(
-                to_ingame
-                    .run_in_state(AppState::MainMenu)
-                    .run_if(lshift_enter_pressed),
-            )
             .add_exit_system(AppState::InGame, debug_leave_game);
     }
 }
@@ -32,10 +27,6 @@ fn clear_on_del(mut cmds: Commands, kb: Res<Input<KeyCode>>) {
 
 fn lshift_esc_pressed(kb: Res<Input<KeyCode>>) -> bool {
     kb.pressed(KeyCode::Escape) && kb.pressed(KeyCode::LShift)
-}
-
-fn lshift_enter_pressed(kb: Res<Input<KeyCode>>) -> bool {
-    kb.pressed(KeyCode::Return) && kb.pressed(KeyCode::LShift)
 }
 
 fn in_game(state: Res<CurrentState<AppState>>) -> bool {
