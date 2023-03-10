@@ -1,5 +1,3 @@
-use bevy_asset_loader::prelude::*;
-
 use crate::prelude::*;
 
 mod cleanup;
@@ -11,5 +9,5 @@ pub use self::{
     cleanup::*,
     mobs::{Mob, MobBundle},
     player::*,
-    tiles::{Tile, TileType, Tileset},
+    tiles::Tile,
 };

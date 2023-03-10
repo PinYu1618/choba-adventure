@@ -1,34 +1,13 @@
-mod helpers;
 mod map;
-mod rect;
 mod schema;
-mod spawn;
+mod tiletype;
 
-pub use self::map::*;
-use self::rect::Rect;
-use self::schema::Schema;
-
-use bevy_ecs_tilemap::{
-    prelude::{
-        get_tilemap_center_transform, TilemapId, TilemapSize, TilemapSpacing, TilemapTexture,
-        TilemapTileSize, TilemapType,
-    },
-    TilemapBundle,
-};
+pub use self::map::Map;
+pub use self::schema::Schema;
+pub use self::tiletype::TileType;
 
 use crate::prelude::*;
 
-const MAP_TYPE: TilemapType = TilemapType::Square;
-
-pub fn setup_map(
-    mut cmds: Commands,
-    tiles_image: Res<Textures>,
-    tileset: Res<Tileset>,
-    tiles: Res<Assets<Tile>>,
-    (mobset, mobs): (Res<Mobset>, Res<Assets<MobData>>),
-) {
-    let schema = helpers::rooms_and_corridors();
-    spawn::tiles_map(&mut cmds, &tiles_image, tileset, tiles, &schema);
-    spawn::mobs_map(&mut cmds, &tiles_image, mobset, mobs, &schema);
-    cmds.spawn(Player);
+pub fn map_idx(x: i32, y: i32) -> usize {
+    ((y * SCREEN_WIDTH) + x) as usize
 }

@@ -4,3 +4,10 @@ pub enum AppState {
     MainMenu,
     InGame,
 }
+
+#[derive(Hash, Copy, Clone, Debug, PartialEq, Eq)]
+pub enum TurnState {
+    Paused,
+    AwaitInput,
+    Running,
+}

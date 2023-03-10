@@ -1,4 +1,5 @@
-use super::*;
+use bevy::prelude::*;
+use bevy_asset_loader::prelude::*;
 
 #[derive(Resource, AssetCollection)]
 pub struct Fonts {
@@ -10,6 +11,8 @@ pub struct Fonts {
 pub struct Textures {
     #[asset(path = "textures/tiles.png")]
     pub tiles: Handle<Image>,
+    #[asset(path = "textures/terminal32x32.jpg")]
+    pub cp437: Handle<Image>,
 }
 
 #[derive(Resource, AssetCollection)]

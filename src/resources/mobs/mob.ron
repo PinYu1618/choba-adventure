@@ -1,7 +1,0 @@
-Mobset(
-    mobs: {
-        Goblin: Mob(
-            index: 3
-        )
-    }
-)

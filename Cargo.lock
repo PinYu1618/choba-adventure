@@ -1166,6 +1166,7 @@ dependencies = [
  "bevy_asset_loader",
  "bevy_common_assets",
  "bevy_ecs_tilemap",
+ "bracket-geometry",
  "bracket-pathfinding",
  "bracket-random",
  "iyes_loopless",
