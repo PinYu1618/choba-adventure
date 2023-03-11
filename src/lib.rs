@@ -24,7 +24,9 @@ pub mod prelude {
     pub const GRID_SIZE: TilemapGridSize = TilemapGridSize { x: 32.0, y: 32.0 };
     pub const MAP_TYPE: TilemapType = TilemapType::Square;
     pub const MAP_SIZE: TilemapSize = TilemapSize { x: 80, y: 50 };
-    pub use crate::{components::*, despawn_with, events::*, quit_app, resources::*, states::*};
+    pub use crate::{
+        components::*, despawn_with, events::*, quit_app, resources::*, states::*, systems,
+    };
 }
 
 use bevy::app::AppExit;

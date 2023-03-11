@@ -7,7 +7,13 @@ pub struct DungeonCrawlPlugin;
 impl Plugin for DungeonCrawlPlugin {
     fn build(&self, app: &mut App) {
         app.add_enter_system(AppState::DungeonCrawl, setup_level)
-            .add_exit_system(AppState::DungeonCrawl, despawn_with::<GameCleanup>);
+            .add_exit_system(AppState::DungeonCrawl, despawn_with::<GameCleanup>)
+            .add_system_set(
+                ConditionSet::new()
+                    .run_in_state(AppState::DungeonCrawl)
+                    .with_system(systems::player_input)
+                    .into(),
+            );
     }
 }
 
