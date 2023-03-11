@@ -5,11 +5,11 @@ pub enum AppState {
     DungeonCrawl,
 }
 
+//^TODO: this is not needed
 #[derive(Hash, Default, Copy, Clone, Debug, PartialEq, Eq)]
 pub enum DungeonState {
     #[default]
     Disabled,
-    Mapgen,
     Ticking,
 }
 

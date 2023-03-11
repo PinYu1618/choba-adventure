@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-#[derive(Resource, Debug)]
+#[derive(Resource, Deref, Debug)]
 pub struct MapConsole(pub Entity);
 
 #[derive(Resource, Debug)]
