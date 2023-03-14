@@ -3,31 +3,42 @@ name = "choba-adventure"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [features]
 dev = ["bevy/dynamic"]
 
 [dependencies]
-bevy_common_assets = { version = "0.4.0", features = ["ron"] }
 bevy_ecs_tilemap = "0.9.0"
-bevy-ui-navigation = "0.23.1"
-bevy-inspector-egui = "0.17.0"
 serde = { version = "1.0.152", features = ["derive"] }
 iyes_loopless = "0.9.1"
 bracket-pathfinding = "0.8.7"
 bracket-random = "0.8.7"
 ron = "0.8.0"
 bracket-geometry = "0.8.7"
+bevy_ecs_ldtk = { version = "0.5.0", features = ["atlas"] }
 
 [dependencies.bevy]
 version = "0.9"
-#default-features = false
-features = ["jpeg"]
+default-features = false
+features = [
+    "bevy_asset",
+    "bevy_core_pipeline",
+    "bevy_render",
+    "bevy_sprite",
+    "bevy_text",
+    "bevy_ui",
+    "bevy_winit",
+    "jpeg",
+    "png",
+    "x11",
+]
 
 [dependencies.bevy_asset_loader]
 version = "0.14.1"
 features = ["stageless", "2d"]
+
+[dependencies.bevy-inspector-egui]
+version = "0.17.0"
+default-features = false
 
 [profile.dev]
 opt-level = 1
