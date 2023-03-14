@@ -11,7 +11,7 @@ pub mod prelude {
     pub use bracket_geometry::prelude::{Point, Rect as BRect};
     pub use iyes_loopless::prelude::*;
     pub const CLEAR: Color = Color::GRAY;
-    pub const TITLE: &str = "Choba Adventure";
+    pub const TITLE: &str = "Escape the Os";
     pub const CANVAS: &str = "#canvas";
     pub const SCREEN_WIDTH: i32 = 80;
     pub const SCREEN_HEIGHT: i32 = 50;

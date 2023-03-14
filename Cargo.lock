@@ -998,23 +998,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd16c4719339c4530435d38e511904438d07cce7950afa3718a84ac36c10e89e"
 
 [[package]]
-name = "choba-adventure"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy-inspector-egui",
- "bevy_asset_loader",
- "bevy_ecs_ldtk",
- "bevy_ecs_tilemap",
- "bracket-geometry",
- "bracket-pathfinding",
- "bracket-random",
- "iyes_loopless",
- "ron",
- "serde",
-]
-
-[[package]]
 name = "clipboard-win"
 version = "4.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1373,6 +1356,23 @@ checksum = "64f18991e7bf11e7ffee451b5318b5c1a73c52d0d0ada6e5a3017c8c1ced6a21"
 dependencies = [
  "libc",
  "str-buf",
+]
+
+[[package]]
+name = "etos"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy-inspector-egui",
+ "bevy_asset_loader",
+ "bevy_ecs_ldtk",
+ "bevy_ecs_tilemap",
+ "bracket-geometry",
+ "bracket-pathfinding",
+ "bracket-random",
+ "iyes_loopless",
+ "ron",
+ "serde",
 ]
 
 [[package]]

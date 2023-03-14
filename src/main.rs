@@ -1,4 +1,4 @@
-use choba_adventure::{prelude::*, GamePlugin};
+use etos::{prelude::*, GamePlugin};
 
 fn main() {
     App::new()
