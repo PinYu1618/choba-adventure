@@ -13,7 +13,7 @@ fn main() {
 fn setup(mut cmds: Commands, ass: Res<AssetServer>) {
     cmds.spawn(Camera2dBundle::default());
     cmds.spawn(LdtkWorldBundle {
-        ldtk_handle: ass.load("ldtks/Test.ldtk"),
+        ldtk_handle: ass.load("ldtks/World.01.ldtk"),
         ..default()
     });
 }
